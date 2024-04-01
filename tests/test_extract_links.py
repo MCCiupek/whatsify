@@ -1,7 +1,7 @@
 from src.extract_links import extract_links, filter_urls
 
 
-def test_extract_links():
+def test_extract_links() -> None:
     filename = "tests/data/test_data.txt"
     urls = extract_links(filename)
     assert urls == [
@@ -13,7 +13,7 @@ def test_extract_links():
     ]
 
 
-def test_filter_urls():
+def test_filter_urls() -> None:
     urls = [
         "https://open.spotify.com/track/2xLMifQCjDGFmkHkpNLD9h",
         "https://open.spotify.com/album/4eLPsYPBmXABThSJ821sqY",

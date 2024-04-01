@@ -1,21 +1,19 @@
 import os
+from typing import Any
 
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID")
-CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET")
-REDIRECT_URI = os.environ.get("SPOTIFY_REDIRECT_URI")
+CLIENT_ID: str | None = os.environ.get("SPOTIFY_CLIENT_ID")
+CLIENT_SECRET: str | None = os.environ.get("SPOTIFY_CLIENT_SECRET")
+REDIRECT_URI: str | None = os.environ.get("SPOTIFY_REDIRECT_URI")
 
 
 def init_conn(
-    client_id=CLIENT_ID,
-    client_secret=CLIENT_SECRET,
-    redirect_uri=REDIRECT_URI,
-):
-    assert client_id, "client_id is null. Check SPOTIFY_CLIENT_ID in your .env."  # noqa: S101
-    assert client_secret, "client_secret is null. Check SPOTIFY_CLIENT_SECRET in your .env."  # noqa: S101
-    assert redirect_uri, "redirect_uri is null. Check SPOTIFY_REDIRECT_URI in your .env."  # noqa: S101
+    client_id: str | None = CLIENT_ID,
+    client_secret: str | None = CLIENT_SECRET,
+    redirect_uri: str | None = REDIRECT_URI,
+) -> Any:
     sp = spotipy.Spotify(
         auth_manager=SpotifyOAuth(
             client_id=client_id,
@@ -26,7 +24,7 @@ def init_conn(
     return sp
 
 
-def check_playlist_exists_by_name(sp, name):
+def check_playlist_exists_by_name(sp: Any, name: str) -> Any:
     playlists = sp.current_user_playlists()["items"]
     for playlist in playlists:
         if playlist["name"] == name:
@@ -36,8 +34,12 @@ def check_playlist_exists_by_name(sp, name):
 
 
 def create_playlist(
-    sp, name="WhatsApp Test Playlist", public=True, collaborative=False, description="Created from Whatsapp"
-):
+    sp: Any,
+    name: str = "WhatsApp Test Playlist",
+    public: bool = True,
+    collaborative: bool = False,
+    description: str = "Created from Whatsapp",
+) -> Any:
     user_id = sp.current_user()["id"]
     playlist = sp.user_playlist_create(
         user_id, name, public=public, collaborative=collaborative, description=description
@@ -46,12 +48,12 @@ def create_playlist(
     return playlist["id"]
 
 
-def song_in_playlist(sp, playlist_id, track_id):
+def song_in_playlist(sp: Any, playlist_id: str, track_id: str) -> Any:
     results = sp.playlist_tracks(playlist_id)
     return any(item["track"]["id"] == track_id for item in results["items"])
 
 
-def add_songs(sp, playlist_id, spotify_links):
+def add_songs(sp: Any, playlist_id: str, spotify_links: list[str]) -> Any:
     for link in spotify_links:
         track = sp.track(link)
         if not song_in_playlist(sp, playlist_id, track["id"]):
@@ -61,7 +63,7 @@ def add_songs(sp, playlist_id, spotify_links):
             print(f"Song '{track['name']}' already in playlist.")
 
 
-def delete_playlist(sp, playlist_id):
+def delete_playlist(sp: Any, playlist_id: str) -> None:
     try:
         sp.current_user_unfollow_playlist(playlist_id)
         print(f"Successfully deleted the playlist with ID {playlist_id}")
