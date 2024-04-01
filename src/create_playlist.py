@@ -1,5 +1,5 @@
 import os
-from typing import Any, Optional
+from typing import Any, List, Optional
 
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
@@ -53,7 +53,7 @@ def song_in_playlist(sp: Any, playlist_id: str, track_id: str) -> Any:
     return any(item["track"]["id"] == track_id for item in results["items"])
 
 
-def add_songs(sp: Any, playlist_id: str, spotify_links: list[str]) -> Any:
+def add_songs(sp: Any, playlist_id: str, spotify_links: List[str]) -> Any:
     for link in spotify_links:
         track = sp.track(link)
         if not song_in_playlist(sp, playlist_id, track["id"]):
