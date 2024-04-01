@@ -1,18 +1,18 @@
 import os
-from typing import Any
+from typing import Any, Optional
 
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-CLIENT_ID: str | None = os.environ.get("SPOTIFY_CLIENT_ID")
-CLIENT_SECRET: str | None = os.environ.get("SPOTIFY_CLIENT_SECRET")
-REDIRECT_URI: str | None = os.environ.get("SPOTIFY_REDIRECT_URI")
+CLIENT_ID: Optional[str] = os.environ.get("SPOTIFY_CLIENT_ID")
+CLIENT_SECRET: Optional[str] = os.environ.get("SPOTIFY_CLIENT_SECRET")
+REDIRECT_URI: Optional[str] = os.environ.get("SPOTIFY_REDIRECT_URI")
 
 
 def init_conn(
-    client_id: str | None = CLIENT_ID,
-    client_secret: str | None = CLIENT_SECRET,
-    redirect_uri: str | None = REDIRECT_URI,
+    client_id: Optional[str] = CLIENT_ID,
+    client_secret: Optional[str] = CLIENT_SECRET,
+    redirect_uri: Optional[str] = REDIRECT_URI,
 ) -> Any:
     sp = spotipy.Spotify(
         auth_manager=SpotifyOAuth(
