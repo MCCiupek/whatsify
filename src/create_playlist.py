@@ -4,9 +4,9 @@ from typing import Any, Optional
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-CLIENT_ID: Optional[str] = os.environ.get("SPOTIFY_CLIENT_ID")
-CLIENT_SECRET: Optional[str] = os.environ.get("SPOTIFY_CLIENT_SECRET")
-REDIRECT_URI: Optional[str] = os.environ.get("SPOTIFY_REDIRECT_URI")
+CLIENT_ID: Optional[str] = os.environ.get("SPOTIPY_CLIENT_ID")
+CLIENT_SECRET: Optional[str] = os.environ.get("SPOTIPY_CLIENT_SECRET")
+REDIRECT_URI: Optional[str] = os.environ.get("SPOTIPY_REDIRECT_URI")
 
 
 def init_conn(
