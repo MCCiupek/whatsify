@@ -11,34 +11,37 @@ Create Spotify playlist from Whatsapp chats.
 - **Github repository**: <https://github.com/MCCiupek/whatsify/>
 - **Documentation** <https://MCCiupek.github.io/whatsify/>
 
-## Getting started with your project
+## usage
 
-First, create a repository on GitHub with the same name as this project, and then run the following commands:
+### Repo and Auth set-up (to do once)
 
-```bash
-git init -b main
-git add .
-git commit -m "init commit"
-git remote add origin git@github.com:MCCiupek/whatsify.git
-git push -u origin main
-```
-
-Finally, install the environment and the pre-commit hooks with
+1. Clone this directory
 
 ```bash
-make install
+gcl git@github.com:MCCiupek/whatsify.git
+cd whatsify
 ```
 
-You are now ready to start development on your project!
-The CI/CD pipeline will be triggered when you open a pull request, merge to main, or when you create a new release.
+2. Create an app in [Spotify Devlopers](https://developer.spotify.com/dashboard)
+3. Save your credentials in a `.env` file
 
-To finalize the set-up for publishing to PyPi or Artifactory, see [here](https://fpgmaas.github.io/cookiecutter-poetry/features/publishing/#set-up-for-pypi).
-For activating the automatic documentation with MkDocs, see [here](https://fpgmaas.github.io/cookiecutter-poetry/features/mkdocs/#enabling-the-documentation-on-github).
-To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-poetry/features/codecov/).
+```python
+SPOTIFY_CLIENT_ID='<YOUR_SPOTIFY_CLIENT_ID>'
+SPOTIFY_CLIENT_SECRET='<YOUR_SPOTIFY_CLIENT_SECRET>'
+SPOTIFY_REDIRECT_URI='http://localhost:8000'
+```
 
-## Releasing a new version
+### Create/update a playlist
 
+1. Make sure that the repo is correctly set-up (cf. instructions above)
+2. Export your Whatsapp chat in `txt` file.
+3. Run:
 
+```bash
+poetry install
+poetry shell
+poetry run python path/to/your/extract.txt playlist_name
+```
 
 ---
 
