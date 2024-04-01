@@ -12,3 +12,8 @@ def extract_links(filename):
 
 def filter_urls(urls, filter_on="spotify"):
     return [url for url in urls if filter_on in url]
+
+
+def extract_spotify_urls(filename):
+    urls = extract_links(filename)
+    return filter_urls(urls)
